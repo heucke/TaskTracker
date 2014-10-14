@@ -37,7 +37,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     }
   }
   
-  // MARK: - Initialization
+  // MARK: - Initialization & Deinitialization
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -47,6 +47,18 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     self.updateUI() // Update title bar and tableData before view appears
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontsChanged:", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
+  }
+  
+  // MARK: - Fonts
+  
+  func preferredFontsChanged(notification: NSNotification) {
+    self.updateUI()
   }
   
   // MARK: - Rows and sections
@@ -81,6 +93,8 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
       cell.textLabel?.attributedText = attributedText
     }
     
+    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.text = task.topic // Right side detail of task cell is the task's topic
     
     return cell

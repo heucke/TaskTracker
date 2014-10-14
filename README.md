@@ -15,11 +15,13 @@ Usage
 Version History
 ===============
 
-- 1.0
+- 1.00
   - Tasks can be edited using the information button
   - This will be streamlined in a future update
   - Aplication icon badge now displays total number of unfinished tasks
-- 1.1
+- 1.10
   - App now asks for permission to display badges
   - Editing tasks is now enabled when Edit button is tapped
   - Edit button also displays deletion circles for each task
+- 1.11
+  - Task list now respects larger text setting
