@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="tBH-za-aFu" detailTextLabel="r91-hC-AvZ" style="IBUITableViewCellStyleValue1" id="4b9-9Q-53D">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" editingAccessoryType="detailButton" textLabel="tBH-za-aFu" detailTextLabel="r91-hC-AvZ" style="IBUITableViewCellStyleValue1" id="4b9-9Q-53D">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4b9-9Q-53D" id="ghW-z6-IFU">
                                     <autoresizingMask key="autoresizingMask"/>

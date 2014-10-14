@@ -39,6 +39,11 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   
   // MARK: - Initialization
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.navigationItem.leftBarButtonItem = self.editButtonItem()
+  }
+  
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     self.updateUI() // Update title bar and tableData before view appears
