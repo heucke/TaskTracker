@@ -15,7 +15,6 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   // MARK: - Constants
   
   let kCellIdentifier = "TaskCell"
-  let kSecondsInDay: Double = 86400
   
   // MARK: - Properties
   
@@ -25,7 +24,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
       return Task.allObjects().arraySortedByProperty("dueDate", ascending: true)
     }
   }
-  var dueDates: [NSDate] { // A set of all of the dueDates past to future
+  var dueDates: [NSDate] { // A set of all of the due dates from past to future
     get {
       var dates = [NSDate]()
       for task in tasks {
@@ -41,7 +40,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationItem.leftBarButtonItem = self.editButtonItem()
+    self.setupUI()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -53,6 +52,13 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
+  }
+  
+  func setupUI() {
+    self.navigationItem.leftBarButtonItem = self.editButtonItem()
+    if tasks.count == 0 {
+      UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    }
   }
   
   // MARK: - Fonts
@@ -68,32 +74,40 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let dateString = Task.getShortDateString(fromDate: self.dueDates[section])
-    return Int(tasks.objectsWhere("shortDate == '\(dateString)'").count) // TODO: Match by NSDate and not string representation
+    var count = 0
+    
+    for task in tasks {
+      let currentTask = task as Task
+      if currentTask.dueDate == self.dueDates[section] {
+        ++count
+      }
+    }
+    
+    return count
   }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return self.fancyDueDateMessage(self.dueDates[section]) // More legible due dates
+    return DateHelpers.fancyDueDateMessage(self.dueDates[section]) // More legible due dates
   }
   
   // MARK: - Cells
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(self.kCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-    let task = self.getTasksByDate(dueDates[indexPath.section]).objectAtIndex(UInt(indexPath.row)) as Task
+    let task = self.getTaskByIndexPath(indexPath) as Task
     
     if task.finished == true { // Task title is striked through if finished
       var attributedText = NSMutableAttributedString(string: task.title)
       attributedText.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attributedText.length))
       attributedText.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.redColor(), range: NSMakeRange(0, attributedText.length))
-      cell.textLabel?.attributedText = attributedText
+      cell.textLabel.attributedText = attributedText
     } else {
       var attributedText = NSMutableAttributedString(string: task.title)
       attributedText.addAttribute(NSStrikethroughStyleAttributeName, value: 0, range: NSMakeRange(0, attributedText.length))
-      cell.textLabel?.attributedText = attributedText
+      cell.textLabel.attributedText = attributedText
     }
     
-    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    cell.textLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.text = task.topic // Right side detail of task cell is the task's topic
     
@@ -101,27 +115,25 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    var task = self.getTasksByDate(self.dueDates[indexPath.section]).objectAtIndex(UInt(indexPath.row)) as Task
+    var task = self.getTaskByIndexPath(indexPath) as Task
     
-    if task.finished {
+    if task.finished { // Increment badge when switching from complete to incomplete
       ++UIApplication.sharedApplication().applicationIconBadgeNumber
-    } else if !task.finished {
+    } else if !task.finished { // Decrement badge when switching from incomplete to complete
       --UIApplication.sharedApplication().applicationIconBadgeNumber
     }
     
     let realm = RLMRealm.defaultRealm()
-    realm.beginWriteTransaction()
-    
-    task.finished = !task.finished
-    
-    realm.commitWriteTransaction()
+    realm.transactionWithBlock() {
+      task.finished = !task.finished
+    }
     
     tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
   }
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      let task = self.getTasksByDate(self.dueDates[indexPath.section]).objectAtIndex(UInt(indexPath.row)) as Task
+      let task = self.getTaskByIndexPath(indexPath) as Task
       let dateCount = self.dueDates.count
       
       if !task.finished { // Decrement app badge if deleting an unfinished task
@@ -129,9 +141,9 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
       }
       
       let realm = RLMRealm.defaultRealm()
-      realm.beginWriteTransaction()
-      realm.deleteObject(task)
-      realm.commitWriteTransaction()
+      realm.transactionWithBlock() {
+        realm.deleteObject(task)
+      }
       
       if self.dueDates.count == dateCount - 1 {
         tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
@@ -144,48 +156,23 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   // MARK: - Updating UI
   
   func updateUI() {
-    self.titleBar.title = "It's \(self.getDayOfWeek(NSDate()))!"
+    self.titleBar.title = "It's \(DateHelpers.getDayOfWeek(NSDate()))!"
     self.tableView.reloadData()
   }
   
   // MARK: - Helpers
   
-  func getTasksByDate(date: NSDate) -> RLMArray {
-    let dateString = Task.getShortDateString(fromDate: date)
-    return tasks.objectsWhere("shortDate == '\(dateString)'").arraySortedByProperty("topic", ascending: true)
-  }
-  
-  func fancyDueDateMessage(date: NSDate) -> String {
-    let days: Int = self.daysFromNow(date)
-    if days < -1 {
-      return "Due \(days * -1) days ago"
-    } else if days == -1 {
-      return "Due yesterday"
-    } else if days == 0 {
-      return "Due today"
-    } else if days == 1 {
-      return "Due tomorrow"
-    } else if days > 1 && days < 7 {
-      return "Due on \(self.getDayOfWeek(date))"
-    } else if days == 7 {
-      return "Due in a week"
-    } else {
-      return "Due in \(days) days"
+  func getTaskByIndexPath(indexPath: NSIndexPath) -> Task {
+    var tasksByDate: [Task] = []
+    
+    for task in tasks {
+      let currentTask = task as Task
+      if currentTask.dueDate == self.dueDates[indexPath.section] {
+        tasksByDate.append(currentTask)
+      }
     }
-  }
-  
-  func daysFromNow(date: NSDate) -> Int {
-    let components = NSCalendar.currentCalendar().components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit, fromDate: NSDate())
-
-    let interval = date.timeIntervalSinceDate(NSCalendar.currentCalendar().dateFromComponents(components)!)
-    var days = interval as Double / self.kSecondsInDay // TODO: Learn correct date calculations
-    return Int(round(days))
-  }
-  
-  func getDayOfWeek(date: NSDate) -> String {
-    let weekday = NSDateFormatter()
-    weekday.dateFormat = "EEEE"
-    return weekday.stringFromDate(date)
+    
+    return tasksByDate[indexPath.row]
   }
   
   // MARK: - Segue Business
@@ -193,10 +180,10 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "EditTask" {
       let indexPath = self.tableView.indexPathForCell(sender as UITableViewCell)
-      let task = self.getTasksByDate(self.dueDates[indexPath!.section]).objectAtIndex(UInt(indexPath!.row)) as Task
+      let task = self.getTaskByIndexPath(indexPath!) as Task
       let attvc: AddTaskTableViewController = segue.destinationViewController as AddTaskTableViewController
-      attvc.taskToEdit = task
       attvc.editMode = true
+      attvc.taskToEdit = task
     }
   }
 

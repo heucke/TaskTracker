@@ -10,6 +10,7 @@
 		2F0BE70F19E3C0D2003D4748 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47C19C2825300A55719 /* AddTaskTableViewController.swift */; };
 		2F0BE71719E3C0D6003D4748 /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47619C27F2E00A55719 /* TaskListTableViewController.swift */; };
 		2F0BE71819E3C0D9003D4748 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47819C27F5200A55719 /* Task.swift */; };
+		2F31F29919F79E3C000A24A6 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31F29819F79E3C000A24A6 /* DateHelpers.swift */; };
 		2FC0E3E319C2745700A55719 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E219C2745700A55719 /* AppDelegate.swift */; };
 		2FC0E3E819C2745700A55719 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E619C2745700A55719 /* Main.storyboard */; };
 		2FC0E3EA19C2745700A55719 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E919C2745700A55719 /* Images.xcassets */; };
@@ -106,6 +107,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F31F29819F79E3C000A24A6 /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		2FC0E3DD19C2745700A55719 /* TaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC0E3E119C2745700A55719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FC0E3E219C2745700A55719 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				2FC0E3E619C2745700A55719 /* Main.storyboard */,
 				2FC0E47C19C2825300A55719 /* AddTaskTableViewController.swift */,
 				2FC0E47619C27F2E00A55719 /* TaskListTableViewController.swift */,
+				2F31F29819F79E3C000A24A6 /* DateHelpers.swift */,
 				2FC0E47819C27F5200A55719 /* Task.swift */,
 				2FC0E3E919C2745700A55719 /* Images.xcassets */,
 				2FC0E3EB19C2745700A55719 /* LaunchScreen.xib */,
@@ -384,6 +387,7 @@
 				2F0BE71819E3C0D9003D4748 /* Task.swift in Sources */,
 				2F0BE71719E3C0D6003D4748 /* TaskListTableViewController.swift in Sources */,
 				2F0BE70F19E3C0D2003D4748 /* AddTaskTableViewController.swift in Sources */,
+				2F31F29919F79E3C000A24A6 /* DateHelpers.swift in Sources */,
 				2FC0E3E319C2745700A55719 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

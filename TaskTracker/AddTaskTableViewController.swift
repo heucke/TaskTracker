@@ -65,7 +65,6 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
       alert.show()
     } else {
       let realm = RLMRealm.defaultRealm()
-      realm.beginWriteTransaction()
       
       if !self.editMode { // Create new task
         ++UIApplication.sharedApplication().applicationIconBadgeNumber
@@ -73,22 +72,24 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
         let task = Task()
         task.title = self.titleTextField.text
         task.topic = self.topicTextField.text
+        task.dueDate = DateHelpers.dateWithNoTime(date: self.datePicker.date)
         
-        let components = NSCalendar.currentCalendar().components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit, fromDate: self.datePicker.date)
-        task.dueDate = NSCalendar.currentCalendar().dateFromComponents(components)! // Time is always 00:00:00
-        
-        realm.addObject(task)
+        realm.transactionWithBlock() {
+          realm.addObject(task)
+        }
       } else if self.editMode { // Edit existing task
         let editedTask = Task()
+        
         editedTask.title = self.titleTextField.text
         editedTask.topic = self.topicTextField.text
         editedTask.dueDate = self.datePicker.date
         editedTask.finished = self.taskToEdit!.finished
-        realm.deleteObject(self.taskToEdit!)
-        realm.addObject(editedTask)
+        
+        realm.transactionWithBlock() {
+          realm.deleteObject(self.taskToEdit!)
+          realm.addObject(editedTask)
+        }
       }
-      
-      realm.commitWriteTransaction()
       
       self.navigationController?.popViewControllerAnimated(true)
     }
