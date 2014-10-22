@@ -1,4 +1,4 @@
-TaskTracker V1.1
+TaskTracker V1.2
 ===========
 
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life.
@@ -25,3 +25,6 @@ Version History
   - Edit button also displays deletion circles for each task
 - 1.11
   - Task list now respects larger text setting
+- 1.2
+  - Moved NSDate helper function to separate file
+  - All date comparison is now done though NSDate, as opposed to string representation comparison
