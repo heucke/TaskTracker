@@ -9,19 +9,19 @@
 import Foundation
 
 class DateHelpers {
-  
+
   // MARK: Set timezone of date to UTC and time to 12:00
   class func dateWithNoTime(date: NSDate = NSDate()) -> NSDate {
     let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)!
     calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
-    var components = NSDateComponents()
-    components = calendar.components(NSCalendarUnit.YearCalendarUnit|NSCalendarUnit.MonthCalendarUnit|NSCalendarUnit.DayCalendarUnit, fromDate: date)
-    var dateWithNoTime = calendar.dateFromComponents(components)!
+    //var components = NSDateComponents() // Unnecessary?
+    let components: NSDateComponents = calendar.components(NSCalendarUnit.YearCalendarUnit|NSCalendarUnit.MonthCalendarUnit|NSCalendarUnit.DayCalendarUnit, fromDate: date)
+    let dateWithNoTime = calendar.dateFromComponents(components)!
     return dateWithNoTime.dateByAddingTimeInterval(60.0 * 60.0 * 12.0)
   }
-  
+
   // MARK: Return a human-readable section header
-  class func fancyDueDateMessage(date: NSDate) -> String {
+  class func descriptiveDueDateMessage(date: NSDate) -> String {
     let days: Int = self.daysFromNow(date)
     if days < -1 {
       return "Due \(days * -1) days ago"
@@ -39,16 +39,17 @@ class DateHelpers {
       return "Due in \(days) days"
     }
   }
-  
+
   // MARK: Days between today and specified date
   class func daysFromNow(date: NSDate) -> Int {
     let kSecondsPerDay: Double = 86400
     // 60 seconds/minute * 60 minutes/hour * 24 hours/day
-    let interval = date.timeIntervalSinceDate(self.dateWithNoTime(date: NSDate()))
-    var days = interval as Double / kSecondsPerDay
+    let today: NSDate = self.dateWithNoTime(date: NSDate())
+    let interval = date.timeIntervalSinceDate(today)
+    let days = interval as Double / kSecondsPerDay
     return Int(round(days))
   }
-  
+
   // MARK: Return a human-readable weekday
   class func getDayOfWeek(date: NSDate) -> String {
     let weekday = NSDateFormatter()

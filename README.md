@@ -25,6 +25,6 @@ Version History
   - Edit button also displays deletion circles for each task
 - 1.11
   - Task list now respects accesibility text size setting
-- 1.2
+- 1.20
   - Moved NSDate helper function to separate file
   - All date comparison is now done though NSDate, as opposed to string representation comparison

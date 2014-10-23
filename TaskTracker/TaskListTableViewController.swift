@@ -87,7 +87,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   }
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return DateHelpers.fancyDueDateMessage(self.dueDates[section]) // More legible due dates
+    return DateHelpers.descriptiveDueDateMessage(self.dueDates[section]) // More legible due dates
   }
   
   // MARK: - Cells
