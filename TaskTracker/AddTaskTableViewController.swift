@@ -37,6 +37,7 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
       self.topicTextField.text = self.taskToEdit!.topic
       self.datePicker.date = self.taskToEdit!.dueDate
     }
+    self.datePicker.timeZone = NSTimeZone(abbreviation: "UTC")
   }
   
   override func viewDidAppear(animated: Bool) {
