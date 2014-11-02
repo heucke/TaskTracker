@@ -37,7 +37,6 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
       self.topicTextField.text = self.taskToEdit!.topic
       self.datePicker.date = self.taskToEdit!.dueDate
     }
-    self.datePicker.timeZone = NSTimeZone(abbreviation: "UTC")
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -83,7 +82,7 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
         
         editedTask.title = self.titleTextField.text
         editedTask.topic = self.topicTextField.text
-        editedTask.dueDate = self.datePicker.date
+        editedTask.dueDate = DateHelpers.dateWithNoTime(date: self.datePicker.date)
         editedTask.finished = self.taskToEdit!.finished
         
         realm.transactionWithBlock() {

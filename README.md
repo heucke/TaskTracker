@@ -1,4 +1,4 @@
-TaskTracker V1.21
+TaskTracker V1.22
 ===========
 
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life.
@@ -31,3 +31,5 @@ Version History
 - 1.21
     + Interval between two dates is now properly calculated
     + DatePicker's time zone is now properly set
+- 1.22
+    + Fixed issue where time zone differences could move a date by one day
