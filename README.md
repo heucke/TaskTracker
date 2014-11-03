@@ -32,4 +32,4 @@ Version History
     + Interval between two dates is now properly calculated
     + DatePicker's time zone is now properly set
 - 1.22
-    + Fixed issue where time zone differences could move a date by one day
+    + Fixed issue where time zone differences could move a selected date forwards by one day
