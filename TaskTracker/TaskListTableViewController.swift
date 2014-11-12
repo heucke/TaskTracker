@@ -56,9 +56,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   
   func setupUI() {
     self.navigationItem.leftBarButtonItem = self.editButtonItem()
-    if tasks.count == 0 {
-      UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-    }
+    self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
   }
   
   // MARK: - Fonts
@@ -77,8 +75,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     var count = 0
     
     for task in tasks {
-      let currentTask = task as Task
-      if currentTask.dueDate == self.dueDates[section] {
+      if (task as Task).dueDate == self.dueDates[section] {
         ++count
       }
     }
@@ -90,20 +87,24 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     return DateHelpers.descriptiveDueDateMessage(self.dueDates[section]) // More legible due dates
   }
   
+  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    var header = view as UITableViewHeaderFooterView
+    header.textLabel.textColor = UIColor.whiteColor()
+  }
+  
   // MARK: - Cells
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(self.kCellIdentifier, forIndexPath: indexPath) as UITableViewCell
     let task = self.getTaskByIndexPath(indexPath) as Task
     
-    if task.finished == true { // Task title is striked through if finished
-      var attributedText = NSMutableAttributedString(string: task.title)
+    var attributedText = NSMutableAttributedString(string: task.title)
+    
+    if task.finished == true { // Task title is marked out if finished
       attributedText.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attributedText.length))
       attributedText.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.redColor(), range: NSMakeRange(0, attributedText.length))
       cell.textLabel.attributedText = attributedText
     } else {
-      var attributedText = NSMutableAttributedString(string: task.title)
-      attributedText.addAttribute(NSStrikethroughStyleAttributeName, value: 0, range: NSMakeRange(0, attributedText.length))
       cell.textLabel.attributedText = attributedText
     }
     
@@ -111,17 +112,13 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.text = task.topic // Right side detail of task cell is the task's topic
     
+    cell.tintColor = UIColor.blackColor()
+    
     return cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     var task = self.getTaskByIndexPath(indexPath) as Task
-    
-    if task.finished { // Increment badge when switching from complete to incomplete
-      ++UIApplication.sharedApplication().applicationIconBadgeNumber
-    } else if !task.finished { // Decrement badge when switching from incomplete to complete
-      --UIApplication.sharedApplication().applicationIconBadgeNumber
-    }
     
     let realm = RLMRealm.defaultRealm()
     realm.transactionWithBlock() {
@@ -135,10 +132,6 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     if editingStyle == .Delete {
       let task = self.getTaskByIndexPath(indexPath) as Task
       let dateCount = self.dueDates.count
-      
-      if !task.finished { // Decrement app badge if deleting an unfinished task
-        --UIApplication.sharedApplication().applicationIconBadgeNumber
-      }
       
       let realm = RLMRealm.defaultRealm()
       realm.transactionWithBlock() {
@@ -157,6 +150,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   
   func updateUI() {
     self.titleBar.title = "It's \(DateHelpers.getDayOfWeek(NSDate()))!"
+    self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
     self.tableView.reloadData()
   }
   
@@ -180,7 +174,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "EditTask" {
       let indexPath = self.tableView.indexPathForCell(sender as UITableViewCell)
-      let task = self.getTaskByIndexPath(indexPath!) as Task
+      let task = self.getTaskByIndexPath(indexPath!)
       let attvc: AddTaskTableViewController = segue.destinationViewController as AddTaskTableViewController
       attvc.editMode = true
       attvc.taskToEdit = task

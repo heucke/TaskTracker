@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B17" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,26 +11,31 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="02c-fS-qfZ">
-                    <rect key="frame" x="0.0" y="64" width="480" height="416"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                </tableView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCG-cp-NfT">
-                    <rect key="frame" x="0.0" y="20" width="480" height="44"/>
-                    <items>
-                        <navigationItem title="TaskTracker" id="0lR-jQ-AJZ"/>
-                    </items>
-                </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcV-eJ-46e">
+                    <rect key="frame" x="187" y="239" width="110" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="FYK-d1-qQr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDr-Af-iEM">
+                    <rect key="frame" x="193" y="176" width="97" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="W65-S3-Jb0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.62352941179999999" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="02c-fS-qfZ" secondAttribute="bottom" id="2lU-cw-3S5"/>
-                <constraint firstItem="02c-fS-qfZ" firstAttribute="leading" secondItem="MCG-cp-NfT" secondAttribute="leading" id="6IN-8A-fWC"/>
-                <constraint firstAttribute="trailing" secondItem="MCG-cp-NfT" secondAttribute="trailing" id="dQW-eN-jQz"/>
-                <constraint firstItem="02c-fS-qfZ" firstAttribute="top" secondItem="MCG-cp-NfT" secondAttribute="bottom" id="gcB-qy-60j"/>
-                <constraint firstItem="MCG-cp-NfT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lXX-0c-pzz"/>
-                <constraint firstItem="MCG-cp-NfT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="oee-Ua-lHg"/>
-                <constraint firstItem="MCG-cp-NfT" firstAttribute="trailing" secondItem="02c-fS-qfZ" secondAttribute="trailing" id="teH-Dh-iXW"/>
+                <constraint firstAttribute="centerX" secondItem="bDr-Af-iEM" secondAttribute="centerX" constant="-1.5" id="Uit-7a-Ix7"/>
+                <constraint firstItem="mcV-eJ-46e" firstAttribute="top" secondItem="bDr-Af-iEM" secondAttribute="bottom" constant="-2" id="cc7-vG-6if"/>
+                <constraint firstAttribute="centerX" secondItem="mcV-eJ-46e" secondAttribute="centerX" constant="-2" id="g36-qQ-3gw"/>
+                <constraint firstAttribute="centerY" secondItem="bDr-Af-iEM" secondAttribute="centerY" constant="31.5" id="mxN-KD-Hk8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

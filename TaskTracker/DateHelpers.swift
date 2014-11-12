@@ -38,7 +38,7 @@ class DateHelpers {
     }
   }
 
-  // MARK: Return a human-readable weekday
+  // MARK: Return a human-readable weekday - Monday
   class func getDayOfWeek(date: NSDate) -> String {
     let weekday = NSDateFormatter()
     weekday.dateFormat = "EEEE"

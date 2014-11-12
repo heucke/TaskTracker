@@ -10,10 +10,10 @@
 		2F0BE70F19E3C0D2003D4748 /* AddTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47C19C2825300A55719 /* AddTaskTableViewController.swift */; };
 		2F0BE71719E3C0D6003D4748 /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47619C27F2E00A55719 /* TaskListTableViewController.swift */; };
 		2F0BE71819E3C0D9003D4748 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47819C27F5200A55719 /* Task.swift */; };
+		2F1278B21A1342B100424F2C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F1278B11A1342B100424F2C /* Images.xcassets */; };
 		2F31F29919F79E3C000A24A6 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31F29819F79E3C000A24A6 /* DateHelpers.swift */; };
 		2FC0E3E319C2745700A55719 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E219C2745700A55719 /* AppDelegate.swift */; };
 		2FC0E3E819C2745700A55719 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E619C2745700A55719 /* Main.storyboard */; };
-		2FC0E3EA19C2745700A55719 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E919C2745700A55719 /* Images.xcassets */; };
 		2FC0E3ED19C2745700A55719 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3EB19C2745700A55719 /* LaunchScreen.xib */; };
 		2FC0E3F919C2745700A55719 /* TaskTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E3F819C2745700A55719 /* TaskTrackerTests.swift */; };
 		2FC0E47219C275FD00A55719 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC0E46119C275C700A55719 /* Realm.framework */; };
@@ -107,12 +107,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F1278B11A1342B100424F2C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		2F31F29819F79E3C000A24A6 /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		2FC0E3DD19C2745700A55719 /* TaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC0E3E119C2745700A55719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FC0E3E219C2745700A55719 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FC0E3E719C2745700A55719 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2FC0E3E919C2745700A55719 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2FC0E3EC19C2745700A55719 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2FC0E3F219C2745700A55719 /* TaskTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC0E3F719C2745700A55719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,8 +170,8 @@
 				2FC0E47619C27F2E00A55719 /* TaskListTableViewController.swift */,
 				2F31F29819F79E3C000A24A6 /* DateHelpers.swift */,
 				2FC0E47819C27F5200A55719 /* Task.swift */,
-				2FC0E3E919C2745700A55719 /* Images.xcassets */,
 				2FC0E3EB19C2745700A55719 /* LaunchScreen.xib */,
+				2F1278B11A1342B100424F2C /* Images.xcassets */,
 				2FC0E3E019C2745700A55719 /* Supporting Files */,
 			);
 			path = TaskTracker;
@@ -268,6 +268,7 @@
 				TargetAttributes = {
 					2FC0E3DC19C2745700A55719 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = H56LT8PZJ4;
 					};
 					2FC0E3F119C2745700A55719 = {
 						CreatedOnToolsVersion = 6.0;
@@ -364,9 +365,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F1278B21A1342B100424F2C /* Images.xcassets in Resources */,
 				2FC0E3E819C2745700A55719 /* Main.storyboard in Resources */,
 				2FC0E3ED19C2745700A55719 /* LaunchScreen.xib in Resources */,
-				2FC0E3EA19C2745700A55719 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +474,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -508,6 +510,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -516,11 +519,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = TaskTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
@@ -528,11 +535,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = TaskTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};

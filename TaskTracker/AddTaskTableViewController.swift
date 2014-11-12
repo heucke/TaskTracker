@@ -67,8 +67,6 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
       let realm = RLMRealm.defaultRealm()
       
       if !self.editMode { // Create new task
-        ++UIApplication.sharedApplication().applicationIconBadgeNumber
-        
         let task = Task()
         task.title = self.titleTextField.text
         task.topic = self.topicTextField.text
