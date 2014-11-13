@@ -1,4 +1,4 @@
-TaskTracker V1.3
+TaskTracker V1.31
 ===========
 
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life.
@@ -35,3 +35,6 @@ Version History
     + Fixed issue where time zone differences could move a selected date forwards by one day
 - 1.3
     + Changed main color of app to a nice blue (from Google's material design)
+- 1.31
+    + Fixed issue where cursor was invisible
+    + Changed styling of add task view

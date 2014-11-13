@@ -164,7 +164,6 @@
 		2FC0E3DF19C2745700A55719 /* TaskTracker */ = {
 			isa = PBXGroup;
 			children = (
-				2FC0E3E219C2745700A55719 /* AppDelegate.swift */,
 				2FC0E3E619C2745700A55719 /* Main.storyboard */,
 				2FC0E47C19C2825300A55719 /* AddTaskTableViewController.swift */,
 				2FC0E47619C27F2E00A55719 /* TaskListTableViewController.swift */,
@@ -180,6 +179,7 @@
 		2FC0E3E019C2745700A55719 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2FC0E3E219C2745700A55719 /* AppDelegate.swift */,
 				2FC0E3E119C2745700A55719 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -496,7 +496,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -535,8 +536,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = TaskTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
