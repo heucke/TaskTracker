@@ -47,16 +47,12 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     super.viewWillAppear(animated)
     self.updateUI() // Update title bar and tableData before view appears
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferredFontsChanged:", name: UIContentSizeCategoryDidChangeNotification, object: nil)
+    self.updateBadge(self.tasks)
   }
   
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
-  }
-  
-  func setupUI() {
-    self.navigationItem.leftBarButtonItem = self.editButtonItem()
-    self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
   }
   
   // MARK: - Fonts
@@ -95,48 +91,54 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   // MARK: - Cells
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
     let cell = tableView.dequeueReusableCellWithIdentifier(self.kCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-    let task = self.getTaskByIndexPath(indexPath) as Task
+    let task = self.getTaskByIndexPath(indexPath, tasks: self.tasks) as Task
     
     var attributedText = NSMutableAttributedString(string: task.title)
     
     if task.finished == true { // Task title is marked out if finished
       attributedText.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attributedText.length))
       attributedText.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.redColor(), range: NSMakeRange(0, attributedText.length))
-      cell.textLabel.attributedText = attributedText
-    } else {
-      cell.textLabel.attributedText = attributedText
     }
     
-    cell.textLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    cell.textLabel?.attributedText = attributedText
+    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     cell.detailTextLabel?.text = task.topic // Right side detail of task cell is the task's topic
     
     cell.tintColor = UIColor.blackColor()
     
     return cell
+    
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    var task = self.getTaskByIndexPath(indexPath) as Task
+    
+    var task = self.getTaskByIndexPath(indexPath, tasks: self.tasks) as Task
     
     let realm = RLMRealm.defaultRealm()
     realm.transactionWithBlock() {
       task.finished = !task.finished
     }
     
+    self.updateBadge(self.tasks)
+    
     tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    
   }
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      let task = self.getTaskByIndexPath(indexPath) as Task
+      let task = self.getTaskByIndexPath(indexPath, tasks: self.tasks) as Task
       let dateCount = self.dueDates.count
       
       let realm = RLMRealm.defaultRealm()
       realm.transactionWithBlock() {
         realm.deleteObject(task)
       }
+      
+      self.updateBadge(self.tasks)
       
       if self.dueDates.count == dateCount - 1 {
         tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
@@ -146,7 +148,12 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     }
   }
   
-  // MARK: - Updating UI
+  // MARK: - UI Helpers
+  
+  func setupUI() {
+    self.navigationItem.leftBarButtonItem = self.editButtonItem()
+    self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+  }
   
   func updateUI() {
     self.titleBar.title = "It's \(DateHelpers.getDayOfWeek(NSDate()))!"
@@ -154,9 +161,18 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
     self.tableView.reloadData()
   }
   
+  func updateBadge(tasks: RLMArray) {
+    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    for task in tasks {
+      if DateHelpers.daysFromNow((task as Task).dueDate) <= 1 && !(task as Task).finished {
+        UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+      }
+    }
+  }
+  
   // MARK: - Helpers
   
-  func getTaskByIndexPath(indexPath: NSIndexPath) -> Task {
+func getTaskByIndexPath(indexPath: NSIndexPath, tasks: RLMArray) -> Task {
     var tasksByDate: [Task] = []
     
     for task in tasks {
@@ -172,13 +188,18 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   // MARK: - Segue Business
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
     if segue.identifier == "EditTask" {
+      
       let indexPath = self.tableView.indexPathForCell(sender as UITableViewCell)
-      let task = self.getTaskByIndexPath(indexPath!)
+      let task = self.getTaskByIndexPath(indexPath!, tasks: self.tasks)
+      
       let attvc: AddTaskTableViewController = segue.destinationViewController as AddTaskTableViewController
-      attvc.editMode = true
+      
       attvc.taskToEdit = task
+      
     }
+    
   }
 
 }

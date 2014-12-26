@@ -19,8 +19,7 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
   
   // MARK: - Properties
   
-  var editMode: Bool = false
-  var taskToEdit: Task? // Only set if editMode is true
+  var taskToEdit: Task? // Will be nil if making a new task
   
   // MARK: - Initialization
   
@@ -32,10 +31,10 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    if self.editMode { // Populate info fields
-      self.titleTextField.text = self.taskToEdit!.title
-      self.topicTextField.text = self.taskToEdit!.topic
-      self.datePicker.date = self.taskToEdit!.dueDate
+    if let task = self.taskToEdit { // Populate info fields
+      self.titleTextField.text = task.title
+      self.topicTextField.text = task.topic
+      self.datePicker.date = task.dueDate
     }
   }
   
@@ -51,7 +50,7 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
   }
   
   @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-    if self.titleTextField.text.utf16Count > 0 && !self.editMode {
+    if self.titleTextField.text.utf16Count > 0 && self.titleTextField.text != self.taskToEdit?.title {
       let alert = UIAlertView(title: "Warning", message: "You have entered a title. Are you sure you would like to cancel?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes")
       alert.show()
     } else {
@@ -64,32 +63,26 @@ class AddTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
       let alert = UIAlertView(title: "Error", message: "You must input a title for the task.", delegate: self, cancelButtonTitle: "OK")
       alert.show()
     } else {
-      let realm = RLMRealm.defaultRealm()
       
-      if !self.editMode { // Create new task
-        let task = Task()
+      let realm = RLMRealm.defaultRealm()
+      if let task = taskToEdit {
+        realm.transactionWithBlock() {
+          task.title = self.titleTextField.text
+          task.topic = self.topicTextField.text
+          task.dueDate = DateHelpers.dateWithNoTime(date: self.datePicker.date)
+        }
+      } else {
+        var task = Task()
         task.title = self.titleTextField.text
         task.topic = self.topicTextField.text
         task.dueDate = DateHelpers.dateWithNoTime(date: self.datePicker.date)
-        
         realm.transactionWithBlock() {
           realm.addObject(task)
-        }
-      } else if self.editMode { // Edit existing task
-        let editedTask = Task()
-        
-        editedTask.title = self.titleTextField.text
-        editedTask.topic = self.topicTextField.text
-        editedTask.dueDate = DateHelpers.dateWithNoTime(date: self.datePicker.date)
-        editedTask.finished = self.taskToEdit!.finished
-        
-        realm.transactionWithBlock() {
-          realm.deleteObject(self.taskToEdit!)
-          realm.addObject(editedTask)
         }
       }
       
       self.navigationController?.popViewControllerAnimated(true)
+      
     }
   }
   

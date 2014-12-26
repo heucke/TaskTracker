@@ -13,7 +13,7 @@ class DateHelpers {
   // MARK: Set timezone of date to UTC and time to 12:00
   class func dateWithNoTime(date: NSDate = NSDate()) -> NSDate {
     let calendar = NSCalendar.currentCalendar()
-    let components: NSDateComponents = calendar.components(NSCalendarUnit.YearCalendarUnit|NSCalendarUnit.MonthCalendarUnit|NSCalendarUnit.DayCalendarUnit, fromDate: date)
+    let components: NSDateComponents = calendar.components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit, fromDate: date)
     calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
     return calendar.dateFromComponents(components)!.dateByAddingTimeInterval(60*60*12) // Add 12 hours
   }
@@ -55,9 +55,6 @@ class DateHelpers {
   class func daysBetween(this: NSDate, that: NSDate) -> Int {
     let calendar = NSCalendar.currentCalendar()
     let result = calendar.components(NSCalendarUnit.DayCalendarUnit, fromDate: this, toDate: that, options: nil).day
-    if this.timeIntervalSinceDate(that) > 0 { // that date is before this date
-      return result - 1
-    }
     return result
   }
 

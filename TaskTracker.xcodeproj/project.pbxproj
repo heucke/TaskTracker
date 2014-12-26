@@ -536,8 +536,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tyler heucke (FEDGYBP229)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tyler heucke (FEDGYBP229)";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = TaskTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
