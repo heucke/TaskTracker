@@ -1,5 +1,5 @@
-TaskTracker Verison 1.1.4
-===========
+TaskTracker Verison 1.1.5
+==============
 
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life.
 
@@ -10,6 +10,8 @@ If you allow it, TaskTracker will display an app badge that corresponds to the n
 Version History
 ===============
 
+- 1.1.5
+	- Change threshold for app badge (defaults to 1, or tomorrrow)
 - 1.1.4
 	- Remove superfluous boolean when editing tasks
 	- Fix tasks due in past being off one day

@@ -12,6 +12,7 @@
 		2F0BE71819E3C0D9003D4748 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E47819C27F5200A55719 /* Task.swift */; };
 		2F1278B21A1342B100424F2C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F1278B11A1342B100424F2C /* Images.xcassets */; };
 		2F31F29919F79E3C000A24A6 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31F29819F79E3C000A24A6 /* DateHelpers.swift */; };
+		2F84206F1A4D609E00D17D55 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F84206E1A4D609E00D17D55 /* Settings.bundle */; };
 		2FC0E3E319C2745700A55719 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E219C2745700A55719 /* AppDelegate.swift */; };
 		2FC0E3E819C2745700A55719 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3E619C2745700A55719 /* Main.storyboard */; };
 		2FC0E3ED19C2745700A55719 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FC0E3EB19C2745700A55719 /* LaunchScreen.xib */; };
@@ -109,6 +110,7 @@
 /* Begin PBXFileReference section */
 		2F1278B11A1342B100424F2C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		2F31F29819F79E3C000A24A6 /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		2F84206E1A4D609E00D17D55 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2FC0E3DD19C2745700A55719 /* TaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC0E3E119C2745700A55719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FC0E3E219C2745700A55719 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		2FC0E3D419C2745700A55719 = {
 			isa = PBXGroup;
 			children = (
+				2F84206E1A4D609E00D17D55 /* Settings.bundle */,
 				2FC0E45519C275C700A55719 /* Realm-Xcode6.xcodeproj */,
 				2FC0E3DF19C2745700A55719 /* TaskTracker */,
 				2FC0E3F519C2745700A55719 /* TaskTrackerTests */,
@@ -365,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F84206F1A4D609E00D17D55 /* Settings.bundle in Resources */,
 				2F1278B21A1342B100424F2C /* Images.xcassets in Resources */,
 				2FC0E3E819C2745700A55719 /* Main.storyboard in Resources */,
 				2FC0E3ED19C2745700A55719 /* LaunchScreen.xib in Resources */,
