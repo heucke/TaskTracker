@@ -162,9 +162,11 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   }
   
   func updateBadge(tasks: RLMArray) {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let numDays = defaults.integerForKey("daysForBadge")
     UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     for task in tasks {
-      if DateHelpers.daysFromNow((task as Task).dueDate) <= 1 && !(task as Task).finished {
+      if DateHelpers.daysFromNow((task as Task).dueDate) <= numDays && !(task as Task).finished {
         UIApplication.sharedApplication().applicationIconBadgeNumber += 1
       }
     }
