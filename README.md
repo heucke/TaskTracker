@@ -1,17 +1,11 @@
-TaskTracker 1.1.4
+TaskTracker Verison 1.1.4
 ===========
 
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life.
 
-Usage
-=====
+Tasks in TaskTracker are simple. Each task has a mandatory title and due date, plus an optional topic. Tasks are sorted by due date in the task list. Every aspect of a task can be edited. Tasks can be swiped on to delete, or tapped on to mark finished.
 
-- Add tasks using the add button in the navigation bar.
-- Mark tasks complete by tapping on their names.
-- Delete tasks by swiping and tapping delete.
-- Edit tasks by tapping on the information button.
-- Titles and due dates are necessary, but topics are not.
-- Badge is numbered for each task due by tomorrow.
+If you allow it, TaskTracker will display an app badge that corresponds to the number of unfinished tasks due by tomorrow. This threshold will be customizable in the next update.
 
 Version History
 ===============
