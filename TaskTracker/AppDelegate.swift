@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     let settings = UIUserNotificationSettings(forTypes: .Badge, categories: nil)
     application.registerUserNotificationSettings(settings)
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let appDefaults = ["appBadge": 1]
+    defaults.registerDefaults(appDefaults)
+    defaults.synchronize()
     return true
   }
 
