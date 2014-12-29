@@ -12,7 +12,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Days for App Badge</string>
+			<string>Days for App Badge:</string>
 			<key>Key</key>
 			<string>daysForBadge</string>
 		</dict>
