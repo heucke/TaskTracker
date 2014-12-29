@@ -41,6 +41,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+    self.updateBadge(self.tasks)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -53,6 +54,7 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
+    self.updateBadge(self.tasks)
   }
   
   // MARK: - Fonts
@@ -164,10 +166,11 @@ class TaskListTableViewController: UITableViewController, UIApplicationDelegate 
   func updateBadge(tasks: RLMArray) {
     let defaults = NSUserDefaults.standardUserDefaults()
     let numDays = defaults.integerForKey("daysForBadge")
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    let application = UIApplication.sharedApplication()
+    application.applicationIconBadgeNumber = 0
     for task in tasks {
       if DateHelpers.daysFromNow((task as Task).dueDate) <= numDays && !(task as Task).finished {
-        UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+        ++application.applicationIconBadgeNumber
       }
     }
   }
