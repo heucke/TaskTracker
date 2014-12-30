@@ -22,7 +22,6 @@ class TaskTrackerTests: XCTestCase {
   }
   
   // MARK: Testing Task
-  
   func testTask() {
     let task = Task()
     
@@ -83,7 +82,6 @@ class TaskTrackerTests: XCTestCase {
   }
   
   // MARK: Testing AddTaskTableViewController
-  
   func testAddTaskTableViewController() {
     let attvc = AddTaskTableViewController()
     
