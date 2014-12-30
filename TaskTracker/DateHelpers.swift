@@ -17,6 +17,26 @@ class DateHelpers {
     calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
     return calendar.dateFromComponents(components)!.dateByAddingTimeInterval(60*60*12) // Add 12 hours
   }
+  
+  // MARK: Number of days between this date and that date
+  class func daysBetween(this: NSDate, that: NSDate) -> Int {
+    let calendar = NSCalendar.currentCalendar()
+    let result = calendar.components(NSCalendarUnit.DayCalendarUnit, fromDate: this, toDate: that, options: nil).day
+    return result
+  }
+  
+  // MARK: Days between today and specified date
+  class func daysFromNow(date: NSDate) -> Int {
+    let today = self.dateWithNoTime(date: NSDate())
+    return self.daysBetween(today, that: date)
+  }
+  
+  // MARK: Return a human-readable weekday - Monday
+  class func getDayOfWeek(date: NSDate) -> String {
+    let weekday = NSDateFormatter()
+    weekday.dateFormat = "EEEE"
+    return weekday.stringFromDate(date)
+  }
 
   // MARK: Return a human-readable section header
   class func descriptiveDueDateMessage(date: NSDate) -> String {
@@ -36,26 +56,6 @@ class DateHelpers {
     } else {
       return "Due in \(days) days"
     }
-  }
-
-  // MARK: Return a human-readable weekday - Monday
-  class func getDayOfWeek(date: NSDate) -> String {
-    let weekday = NSDateFormatter()
-    weekday.dateFormat = "EEEE"
-    return weekday.stringFromDate(date)
-  }
-  
-  // MARK: Days between today and specified date
-  class func daysFromNow(date: NSDate) -> Int {
-    let today = self.dateWithNoTime(date: NSDate())
-    return self.daysBetween(today, that: date)
-  }
-  
-  // MARK: Number of days between this date and that date
-  class func daysBetween(this: NSDate, that: NSDate) -> Int {
-    let calendar = NSCalendar.currentCalendar()
-    let result = calendar.components(NSCalendarUnit.DayCalendarUnit, fromDate: this, toDate: that, options: nil).day
-    return result
   }
 
 }
