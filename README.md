@@ -1,5 +1,7 @@
 # TaskTracker 2.0.0
 
+![TaskTracker](http://i.imgur.com/VuViWHD.jpg)
+
 An app through which I learned Xcode, Swift, Cocoa, and RealmDB. I designed TaskTracker to be simple and easy to understand, while still containing enough data to be useful for a university student. I use it every day of my life. If you allow it, the app will display a badge numbering each task due by a certain number of days in the future. This number can be customised in the Settings app, and defaults to one day in the future (tomorrow).
 
 Tasks in TaskTracker are simple. Each task has a mandatory title and due date, plus an optional topic. Tasks are sorted by due date in the task list. Every aspect of a task can be edited. Tasks can be swiped on to delete, or tapped on to mark finished.
